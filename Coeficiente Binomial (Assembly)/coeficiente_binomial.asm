@@ -12,12 +12,13 @@ main:
 
       	#fatorial de n
         li $a1, 1			# contador
-        ld $s0, $n
+        ld $s0, $n			# carregando o valor n da memória
         addi $s3, $s0, -1		# esse valor de $s3 vai ser usado na condição de parada do loop
-        la $a2, ($s0)			# $a2 = n
+        la $a2, ($s0)			# n precisa ser passado como parametro, então $a2 = n
         jal fatorial
         add $s4, $v0, $zero		# guardando resultado do fatorial de n em $s4
         
+        # A preperação das variáveis para chamar fatorial de k e depois n-k é basicamente o mesmo que foi feito acima
         #fatorial de k
         li $a1, 1
         ld $s0, $k
@@ -55,8 +56,9 @@ fatorial:
 	mul $s0, $s0, $t1		# Nessa linha é que as multiplicações do fatorial estão sendo feitas
         addi $a1,$a1,1                	# incrementa o contador
         ble $a1,$s3,fatorial            # verifica se terminou e faz o loop
-        add $v0, $s0, $zero		# resulvado guardado na variável de retorno
-        jr $ra
+        add $v0, $s0, $zero		# resultado guardado na variável de retorno
+        jr $ra				# Quando o desvio jal é chamado, a instrução interrompida fica guardada no $ra
+        				# jr faz o retorno utilizando esse conteúdo de $ra
  
 fatorial_1:
 	li $s0, 1
