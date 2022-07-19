@@ -13,7 +13,7 @@ main:
       	#fatorial de n
         li $a1, 1			# contador
         ld $s0, $n			# carregando o valor n da memória
-        addi $s3, $s0, -1		# esse valor de $s3 vai ser usado na condição de parada do loop
+        addi $a3, $s0, -1		# esse valor vai ser usado na condição de parada do loop
         la $a2, ($s0)			# n precisa ser passado como parametro, então $a2 = n
         jal fatorial
         add $s4, $v0, $zero		# guardando resultado do fatorial de n em $s4
@@ -22,7 +22,7 @@ main:
         #fatorial de k
         li $a1, 1
         ld $s0, $k
-        addi $s3, $s0, -1
+        addi $a3, $s0, -1
         la $a2, ($s0) 			# $a2 = k
         jal fatorial
         add $s5, $v0, $zero		# guardando resultado do fatorial de k em $s5
@@ -32,7 +32,7 @@ main:
         ld $t0, $n
         ld $t1, $k
         sub $s0, $t0, $t1
-        addi $s3, $s0, -1
+        addi $a3, $s0, -1
         la $a2, ($s0) 			# $a2 = n-k
         jal fatorial 
         add $s6, $v0, $zero		# guardando resultado de n-k! em $s6
@@ -55,7 +55,7 @@ fatorial:
 	mul $t0, $t0, -1
 	mul $s0, $s0, $t1		# Nessa linha é que as multiplicações do fatorial estão sendo feitas
         addi $a1,$a1,1                	# incrementa o contador
-        ble $a1,$s3,fatorial            # verifica se terminou e faz o loop
+        ble $a1,$a3,fatorial            # faz o loop se a condição de parada não é atendida
         add $v0, $s0, $zero		# resultado guardado na variável de retorno
         jr $ra				# Quando o desvio jal é chamado, a instrução interrompida fica guardada no $ra
         				# jr faz o retorno utilizando esse conteúdo de $ra
